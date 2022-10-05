@@ -4,8 +4,9 @@
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'grails_estia_22_23.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'grails_estia_22_23.UserRole'
 grails.plugin.springsecurity.authority.className = 'grails_estia_22_23.Role'
+grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	[pattern: '/',               access: ['permitAll']],
+	[pattern: '/',               access: ['isFullyAuthenticated()']],
 	[pattern: '/dbconsole/**',   access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['permitAll']],

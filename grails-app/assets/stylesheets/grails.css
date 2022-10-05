@@ -78,7 +78,7 @@ a.navbar-brand {
     }
 }
 
-/* specific to index.html */
+/* specific to index.gsp */
 
 @media (max-width: 999px) {
     #fork-me {
