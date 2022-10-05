@@ -21,7 +21,7 @@ class UserController {
     }
 
     def create() {
-        respond new User(params)
+        render(view: '/user/create', model:[user: new User(params), roleList: Role.list()])
     }
 
     def save(User user) {
@@ -32,6 +32,8 @@ class UserController {
 
         try {
             userService.save(user)
+            def roleInstance = Role.get(params.role)
+            UserRole.create(user, roleInstance, true)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
@@ -58,6 +60,7 @@ class UserController {
 
         try {
             userService.save(user)
+
         } catch (ValidationException e) {
             respond user.errors, view:'edit'
             return
