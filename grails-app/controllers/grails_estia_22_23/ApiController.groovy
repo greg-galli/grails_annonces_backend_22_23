@@ -2,14 +2,16 @@ package grails_estia_22_23
 
 import grails.converters.JSON
 import grails.converters.XML
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['ROLE_ADMIN','ROLE_CLIENT'])
 class ApiController {
 
     /**
      * GET / PUT / PATCH / DELETE
      * GET : Récupère un utilisateur spécifique (id)
      * PUT / PATCH : Modifient intégralement / partiellement un utilisateur
-     * DELETE : Supprime un utilisateur
+     * DELETE : Supprime un utilisateurppp
      */
     def user() {
         // Je teste si le parametre ID est bien défini
