@@ -1,4 +1,5 @@
-html, body {
-    margin: 0;
-    display: grid;
+#edit-annonce img:hover
+{
+    cursor: pointer;
+    opacity: 0.4;
 }

@@ -29,6 +29,7 @@ class ApiController {
                 renderThis(userInstance, request.getHeader("Accept"))
                 break
             case "PUT":
+                userInstance.save(flush:true)
                 break
             case "PATCH":
                 break
@@ -52,6 +53,8 @@ class ApiController {
             case "GET":
                 break
             case "POST":
+                def json = request.JSON
+                new User(username: json.username, password: json.password)
                 break
         }
     }

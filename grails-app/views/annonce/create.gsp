@@ -6,15 +6,10 @@
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#create-annonce" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-            </ul>
-        </div>
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800"><g:message code="default.create.label" args="[entityName]" /></h1>
+                        </div>
         <div id="create-annonce" class="content scaffold-create" role="main">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
@@ -25,14 +20,33 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.annonce}" method="POST">
+            <form action="save" enctype="multipart/form-data" method="POST">
                 <fieldset class="form">
-                    <f:all bean="annonce"/>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user"
+                               id="title" name="title" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user"
+                               id="description" name="description" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user"
+                               id="price" name="price" placeholder="Price">
+                    </div>
+                    <div class="form-group">
+                        <g:select name="author.id" from="${userList}" optionKey="id" optionValue="username" class="form-control form-control-user"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" multiple class="form-control form-control-user"
+                               id="illustration" name="files" placeholder="Annonce title ...">
+                    </div>
+
                 </fieldset>
                 <fieldset class="buttons">
-                    <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                    <g:submitButton name="create" class="save  btn-primary btn-user btn-block" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </fieldset>
-            </g:form>
+            </form>
         </div>
     </body>
 </html>
