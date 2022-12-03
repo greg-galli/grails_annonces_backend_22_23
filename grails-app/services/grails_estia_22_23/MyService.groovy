@@ -9,10 +9,11 @@ class MyService {
     def getUserSpecificAnnonces(User currentUser, Map params)
     {
         def annonceList
+        def authorities = currentUser.getAuthorities().authority
         // S'il s'agit d'un administrateur ou d'un modérateur, on renvoi la liste complète des annonces
-        if (currentUser.getAuthorities().authority.contains('ROLE_ADMIN') || currentUser.getAuthorities().authority.contains('ROLE_MODO')) {
+        if (authorities.contains('ROLE_ADMIN') || authorities.contains('ROLE_MODO')) {
             if (params.author)
-                annonceList = Annonce.findAllByAuthor(User.get(params.author))
+                annonceList = Annonce.findAllByAuthor(User.get(((Long)params.author)))
             else
                 annonceList = Annonce.list(params)
         }

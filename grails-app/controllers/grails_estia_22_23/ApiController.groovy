@@ -7,11 +7,13 @@ import grails.plugin.springsecurity.annotation.Secured
 @Secured(['ROLE_ADMIN','ROLE_CLIENT'])
 class ApiController {
 
+    UserService userService
+
     /**
      * GET / PUT / PATCH / DELETE
      * GET : Récupère un utilisateur spécifique (id)
      * PUT / PATCH : Modifient intégralement / partiellement un utilisateur
-     * DELETE : Supprime un utilisateurppp
+     * DELETE : Supprime un utilisateur
      */
     def user() {
         // Je teste si le parametre ID est bien défini
@@ -32,8 +34,17 @@ class ApiController {
                 userInstance.save(flush:true)
                 break
             case "PATCH":
+                def json = request.getJSON()
+                if (json.getAt("username"))
+                    userInstance.username = json.getAt("username")
+                if (json.getAt("password"))
+                    userInstance.password = json.getAt("password")
+                if (userInstance.save(flush:true))
+                    return response.status = 200
+                return response.status = 400
                 break
             case "DELETE":
+                userInstance.delete()
                 break
             default:
                 return response.status = 405
@@ -51,10 +62,13 @@ class ApiController {
 
         switch (request.getMethod()) {
             case "GET":
+                renderThis(User.list(), request.getHeader("Accept"))
                 break
             case "POST":
                 def json = request.JSON
-                new User(username: json.username, password: json.password)
+                def user = new User(username: json.username, password: json.password)
+//                user.save(flush: true)
+                userService.save(user)
                 break
         }
     }
